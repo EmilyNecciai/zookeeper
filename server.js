@@ -59,7 +59,7 @@ function findById(id, animalsArray) {
 }
 
 
-
+ 
 //route that the front-end can request data from - CREATES THE ROUTE
 app.get('/api/animals', (req, res) => {
     let results = animals;
