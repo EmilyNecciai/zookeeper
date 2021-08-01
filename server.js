@@ -49,6 +49,17 @@ function filterByQuery(query, animalsArray) {
     // return the filtered results:
     return filteredResults;
   }
+
+
+
+//Takes in ID and returns single animal object
+function findById(id, animalsArray) {
+  const result = animalsArray.filter(animal => animal.id === id)[0];
+  return result;
+}
+
+
+
 //route that the front-end can request data from - CREATES THE ROUTE
 app.get('/api/animals', (req, res) => {
     let results = animals;
@@ -58,6 +69,17 @@ app.get('/api/animals', (req, res) => {
     res.json(results);
   });
 
+
+
+//Handles requests for a specific animal
+app.get('/api/animals/:id', (req, res) => {
+  const result = findById(req.params.id, animals);
+  if (result) {
+    res.json(result);
+  } else {
+    res.send(404);
+  }
+});
 // method to make our server listen -- stays at bottom
 app.listen(PORT, () => {
   console.log(`API server now on port ${PORT}!`);
