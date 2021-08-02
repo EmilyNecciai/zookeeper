@@ -31,7 +31,7 @@ const getAnimals = (formData = {}) => {
 
   console.log(queryUrl);
 
-  //Get and update animal data
+  //Get and update animal
   fetch(queryUrl)
   .then(response => {
     if (!response.ok) {
