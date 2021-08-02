@@ -19,6 +19,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
+// Instruct the server to make the public file available with all files within it.  The way it works is that we provide a file path to a location in our application (in this case, the public folder) and instruct the server to make these files static resources
+app.use(express.static('public'));
 
 //Query data function
 function filterByQuery(query, animalsArray) {
@@ -135,12 +137,31 @@ app.post('/api/animals', (req, res) => {
         const animal = createNewAnimal(req.body, animals);
         res.json(animal);
       }
-    
+
 
   // console.log(req.body);
   // res.json(animal);
 });
 
+// Get index.html to be served from the express server
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+// Get Animals.html to be served from the express server
+app.get('/animals', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+
+//get Zookeepers.html to be served from the express server
+app.get('/zookeepers', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/zookeepers.html'));
+});
+
+//WILDCARD ROUTE
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
 
 // method to make our server listen -- stays at bottom
 app.listen(PORT, () => {
